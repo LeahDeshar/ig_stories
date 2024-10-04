@@ -5,6 +5,7 @@ import {
   Image,
   SafeAreaView,
   TextInput,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import userStories from "./stories";
@@ -19,6 +20,55 @@ const App = () => {
 
   const user = userStories[userIndex];
   const story = user.stories[storyIndex];
+  const goToPrevStory = () => {
+    setStoryIndex((index) => {
+      if (index == 0) {
+        goToPrevUser();
+        return 0;
+      } else {
+        return index - 1;
+      }
+    });
+  };
+
+  const goToPrevUser = () => {
+    setUserIndex((index) => {
+      if (index === 0) {
+        return userStories.length - 1;
+      } else {
+        return index - 1;
+      }
+    });
+  };
+  const goToNextStory = () => {
+    setStoryIndex((index) => {
+      if (index == user.stories.length - 1) {
+        goToNextUser();
+        return 0;
+      } else {
+        return index + 1;
+      }
+    });
+  };
+  const goToNextUser = () => {
+    setUserIndex((index) => {
+      if (index == userStories.length - 1) {
+        return 0;
+      } else {
+        return index + 1;
+      }
+    });
+  };
+  // const goToNextStory = () => {
+  //   console.log("Next");
+  //   // go to next story logic
+  //   if (storyIndex < user.stories.length - 1) {
+  //     setStoryIndex((index) => index + 1);
+  //   } else if (userIndex < userStories.length - 1) {
+  //     setUserIndex((index) => index + 1);
+  //     setStoryIndex(0);
+  //   }
+  // };
   return (
     <SafeAreaView
       style={{
@@ -35,6 +85,25 @@ const App = () => {
             // flex: 1,
             borderRadius: 10,
           }}
+        />
+        <Pressable
+          style={{
+            position: "absolute",
+            backgroundColor: "red",
+            width: "30%",
+            height: "100%",
+          }}
+          onPress={goToPrevStory}
+        />
+        <Pressable
+          style={{
+            position: "absolute",
+            right: 0,
+            backgroundColor: "red",
+            width: "30%",
+            height: "100%",
+          }}
+          onPress={goToNextStory}
         />
         <View
           style={{
@@ -71,7 +140,10 @@ const App = () => {
             borderColor: "gray",
             padding: 10,
             borderRadius: 50,
+            color: "white",
           }}
+          placeholder="Send message"
+          placeholderTextColor="gray"
         />
       </View>
       <StatusBar style="light" />
