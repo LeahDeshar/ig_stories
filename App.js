@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  TextInput,
+} from "react-native";
 import React, { useState } from "react";
 import userStories from "./stories";
 import { StatusBar } from "expo-status-bar";
@@ -13,26 +20,62 @@ const App = () => {
   const user = userStories[userIndex];
   const story = user.stories[storyIndex];
   return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: story?.uri }}
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-      />
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "black",
+      }}
+    >
+      <View style={{ flex: 1 }}>
+        <Image
+          source={{ uri: story?.uri }}
+          style={{
+            width: "100%",
+            height: "100%",
+            // flex: 1,
+            borderRadius: 10,
+          }}
+        />
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            width: "100%",
+            backgroundColor: "rgba(0,0,0,0.3)",
+            padding: 10,
+            paddingVertical: 20,
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              marginTop: 10,
+            }}
+          >
+            {user.username}
+          </Text>
+        </View>
+      </View>
       <View
         style={{
-          position: "absolute",
-          top: 100,
+          height: 100,
           width: "100%",
+          backgroundColor: "black",
+          padding: 10,
         }}
       >
-        <Text style={{}}>{user.username}</Text>
+        <TextInput
+          style={{
+            borderWidth: 1,
+            borderColor: "gray",
+            padding: 10,
+            borderRadius: 50,
+          }}
+        />
       </View>
-
-      <StatusBar style="auto" />
-    </View>
+      <StatusBar style="light" />
+    </SafeAreaView>
   );
 };
 
@@ -41,8 +84,5 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
