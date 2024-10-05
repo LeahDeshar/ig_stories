@@ -7,17 +7,24 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import userStories from "./stories";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 const uri =
   "https://images.unsplash.com/photo-1472586662442-3eec04b9dbda?q=80&w=1774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
+const storyViewDuration = 10 * 1000;
 const App = () => {
   const [userIndex, setUserIndex] = useState(0);
   const [storyIndex, setStoryIndex] = useState(0);
+  const progress = useSharedValue(0);
 
   const user = userStories[userIndex];
   const story = user.stories[storyIndex];
@@ -60,6 +67,18 @@ const App = () => {
       }
     });
   };
+  // useEffect(() => {
+  //   progress.value = withTiming(1, { duration: storyViewDuration });
+  // }, []);
+
+  useEffect(() => {
+    progress.value = 0;
+    progress.value = withTiming(1, { duration: storyViewDuration });
+  }, [storyIndex]);
+
+  const indicatorAnimatedStyle = useAnimatedStyle(() => ({
+    width: `${progress.value * 100}%`,
+  }));
   // const goToNextStory = () => {
   //   console.log("Next");
   //   // go to next story logic
@@ -119,6 +138,7 @@ const App = () => {
             colors={["rgba(0,0,0,0.7)", "transparent"]}
             style={StyleSheet.absoluteFill}
           />
+
           <View
             style={{
               gap: 5,
@@ -128,45 +148,31 @@ const App = () => {
           >
             {user.stories.map((story, index) => (
               <View
-                key={story?.userId}
-                style={[
-                  {
-                    flex: 1,
-                    height: 5,
-                    backgroundColor: "gray",
-                    borderRadius: 10,
-                  },
-                  {
-                    // backgroundColor: index === storyIndex ? "white" : "gray",
-                    backgroundColor: index <= storyIndex ? "white" : "gray",
-                  },
-                ]}
-              />
+                key={index}
+                style={{
+                  flex: 1,
+                  height: 3,
+                  backgroundColor: "gray",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                }}
+              >
+                <Animated.View
+                  style={[
+                    {
+                      backgroundColor: "white",
+                      height: "100%",
+                      width: "50%",
+                    },
+                    indicatorAnimatedStyle,
+                    // {
+
+                    //   width: index <= storyIndex ? "100%" : "30%",
+                    // },
+                  ]}
+                />
+              </View>
             ))}
-            {/* <View
-              style={{
-                flex: 1,
-                height: 5,
-                backgroundColor: "gray",
-                borderRadius: 10,
-              }}
-            />
-            <View
-              style={{
-                flex: 1,
-                height: 5,
-                backgroundColor: "gray",
-                borderRadius: 10,
-              }}
-            />
-            <View
-              style={{
-                flex: 1,
-                height: 5,
-                backgroundColor: "gray",
-                borderRadius: 10,
-              }}
-            /> */}
           </View>
           <Text
             style={{
