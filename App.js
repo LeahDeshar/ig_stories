@@ -12,15 +12,18 @@ import userStories from "./stories";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
+  useAnimatedReaction,
+  runOnJS,
 } from "react-native-reanimated";
 
 const uri =
   "https://images.unsplash.com/photo-1472586662442-3eec04b9dbda?q=80&w=1774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-const storyViewDuration = 10 * 1000;
+const storyViewDuration = 5 * 1000;
 const App = () => {
   const [userIndex, setUserIndex] = useState(0);
   const [storyIndex, setStoryIndex] = useState(0);
@@ -67,28 +70,34 @@ const App = () => {
       }
     });
   };
-  // useEffect(() => {
-  //   progress.value = withTiming(1, { duration: storyViewDuration });
-  // }, []);
 
+  // useEffect(() => {
+  //   progress.value = 0;
+  //   progress.value = withTiming(1, {
+  //     duration: storyViewDuration,
+  //     easing: Easing.linear,
+  //   });
+  // }, [storyIndex]);
   useEffect(() => {
     progress.value = 0;
-    progress.value = withTiming(1, { duration: storyViewDuration });
-  }, [storyIndex]);
+    progress.value = withTiming(1, {
+      duration: storyViewDuration,
+      easing: Easing.linear,
+    });
+  }, [storyIndex, userIndex]);
+  useAnimatedReaction(
+    () => progress.value,
+    (currentValue, previousValue) => {
+      if (currentValue !== previousValue && currentValue === 1) {
+        runOnJS(goToNextStory)();
+      }
+    }
+  );
 
   const indicatorAnimatedStyle = useAnimatedStyle(() => ({
     width: `${progress.value * 100}%`,
   }));
-  // const goToNextStory = () => {
-  //   console.log("Next");
-  //   // go to next story logic
-  //   if (storyIndex < user.stories.length - 1) {
-  //     setStoryIndex((index) => index + 1);
-  //   } else if (userIndex < userStories.length - 1) {
-  //     setUserIndex((index) => index + 1);
-  //     setStoryIndex(0);
-  //   }
-  // };
+
   return (
     <SafeAreaView
       style={{
@@ -102,14 +111,13 @@ const App = () => {
           style={{
             width: "100%",
             height: "100%",
-            // flex: 1,
             borderRadius: 10,
           }}
         />
         <Pressable
           style={{
             position: "absolute",
-            backgroundColor: "red",
+            // backgroundColor: "red",
             width: "30%",
             height: "100%",
           }}
@@ -119,7 +127,7 @@ const App = () => {
           style={{
             position: "absolute",
             right: 0,
-            backgroundColor: "red",
+            // backgroundColor: "red",
             width: "30%",
             height: "100%",
           }}
@@ -151,7 +159,7 @@ const App = () => {
                 key={index}
                 style={{
                   flex: 1,
-                  height: 3,
+                  height: 2,
                   backgroundColor: "gray",
                   borderRadius: 10,
                   overflow: "hidden",
@@ -162,13 +170,10 @@ const App = () => {
                     {
                       backgroundColor: "white",
                       height: "100%",
-                      width: "50%",
                     },
-                    indicatorAnimatedStyle,
-                    // {
-
-                    //   width: index <= storyIndex ? "100%" : "30%",
-                    // },
+                    index === storyIndex && indicatorAnimatedStyle,
+                    index > storyIndex && { width: 0 },
+                    index < storyIndex && { width: "100%" },
                   ]}
                 />
               </View>
