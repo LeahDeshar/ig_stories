@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import userStories from "./stories";
 import { StatusBar } from "expo-status-bar";
+import { LinearGradient } from "expo-linear-gradient";
 
 const uri =
   "https://images.unsplash.com/photo-1472586662442-3eec04b9dbda?q=80&w=1774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -110,11 +111,63 @@ const App = () => {
             position: "absolute",
             top: 0,
             width: "100%",
-            backgroundColor: "rgba(0,0,0,0.3)",
-            padding: 10,
-            paddingVertical: 20,
+            padding: 20,
+            paddingTop: 5,
           }}
         >
+          <LinearGradient
+            colors={["rgba(0,0,0,0.7)", "transparent"]}
+            style={StyleSheet.absoluteFill}
+          />
+          <View
+            style={{
+              gap: 5,
+              flexDirection: "row",
+              marginBottom: 20,
+            }}
+          >
+            {user.stories.map((story, index) => (
+              <View
+                key={story?.userId}
+                style={[
+                  {
+                    flex: 1,
+                    height: 5,
+                    backgroundColor: "gray",
+                    borderRadius: 10,
+                  },
+                  {
+                    // backgroundColor: index === storyIndex ? "white" : "gray",
+                    backgroundColor: index <= storyIndex ? "white" : "gray",
+                  },
+                ]}
+              />
+            ))}
+            {/* <View
+              style={{
+                flex: 1,
+                height: 5,
+                backgroundColor: "gray",
+                borderRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                flex: 1,
+                height: 5,
+                backgroundColor: "gray",
+                borderRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                flex: 1,
+                height: 5,
+                backgroundColor: "gray",
+                borderRadius: 10,
+              }}
+            /> */}
+          </View>
           <Text
             style={{
               color: "white",
