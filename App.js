@@ -9,7 +9,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import userStories from "./stories";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
@@ -20,6 +20,7 @@ import Animated, {
   withTiming,
   useAnimatedReaction,
   runOnJS,
+  cancelAnimation,
 } from "react-native-reanimated";
 import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -36,6 +37,7 @@ const App = () => {
   const [userIndex, setUserIndex] = useState(0);
   const [storyIndex, setStoryIndex] = useState(0);
   const progress = useSharedValue(0);
+  const [message, setMessage] = useState("");
 
   const user = userStories[userIndex];
   const story = user.stories[storyIndex];
@@ -103,18 +105,23 @@ const App = () => {
 
   const emojiReactions = ["😂", "🔥", "👏", "😍", "😢", "😮"];
   const emojiChunks = chunkArray(emojiReactions, 3);
-
+  // Keyboard event listeners
   React.useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
         setKeyboardVisible(true);
+        cancelAnimation(progress);
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
       () => {
         setKeyboardVisible(false);
+        progress.value = withTiming(1, {
+          duration: (1 - progress.value) * storyViewDuration,
+          easing: Easing.linear,
+        });
       }
     );
 
@@ -123,7 +130,31 @@ const App = () => {
       keyboardDidShowListener.remove();
     };
   }, []);
+  const pauseProgress = () => {
+    cancelAnimation(progress);
+  };
 
+  const resumeProgress = () => {
+    progress.value = withTiming(1, {
+      duration: (1 - progress.value) * storyViewDuration,
+      easing: Easing.linear,
+    });
+  };
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }
+    );
+    return () => {
+      keyboardDidShowListener.remove();
+    };
+  }, []);
   return (
     <SafeAreaView
       style={{
@@ -131,7 +162,11 @@ const App = () => {
         backgroundColor: "black",
       }}
     >
-      <View style={{ flex: 1 }}>
+      <Pressable
+        style={{ flex: 1 }}
+        onPressIn={pauseProgress}
+        onPressOut={resumeProgress}
+      >
         <Image
           source={{ uri: story?.uri }}
           style={{
@@ -143,7 +178,6 @@ const App = () => {
         <Pressable
           style={{
             position: "absolute",
-            // backgroundColor: "red",
             width: "30%",
             height: "100%",
           }}
@@ -291,7 +325,7 @@ const App = () => {
             </View>
           </View>
         </View>
-      </View>
+      </Pressable>
 
       {isKeyboardVisible && (
         <View
@@ -361,9 +395,24 @@ const App = () => {
                   borderRadius: 50,
                   color: "white",
                 }}
+                ref={inputRef}
                 placeholder="Send message..."
                 placeholderTextColor="#ffffff"
+                value={message} // Bind state to TextInput
+                onChangeText={(text) => setMessage(text)}
               />
+              {message.length > 0 && ( // Conditionally render send icon if there's text
+                <View
+                  style={{
+                    position: "absolute",
+                    right: 15,
+                    top: 8,
+                    transform: [{ rotate: "18deg" }],
+                  }}
+                >
+                  <Feather name="send" size={22} color="white" />
+                </View>
+              )}
             </View>
           </View>
         </View>
