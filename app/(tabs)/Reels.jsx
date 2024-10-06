@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Temp = () => {
+const Reels = () => {
   return (
     <View>
-      <Text>Temp</Text>
+      <Text>Reels</Text>
     </View>
   );
 };
 
-export default Temp;
+export default Reels;
 
 const styles = StyleSheet.create({});

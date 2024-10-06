@@ -1,15 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
-const Temp = () => {
-  useState;
+const NewPost = () => {
   return (
     <View>
-      <Text>Temp</Text>
+      <Text>NewPost</Text>
     </View>
   );
 };
 
-export default Temp;
+export default NewPost;
 
 const styles = StyleSheet.create({});
