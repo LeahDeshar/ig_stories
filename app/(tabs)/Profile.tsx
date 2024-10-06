@@ -35,10 +35,16 @@ const Profile = () => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          marginHorizontal: 15,
+          // marginHorizontal: 13,
+          // backgroundColor: "red",
+          marginBottom: 13,
         }}
       >
-        <View>
+        <View
+          style={{
+            marginRight: 13,
+          }}
+        >
           <Image
             source={{ uri: myProfile.userImg }}
             style={{
@@ -46,12 +52,36 @@ const Profile = () => {
               height: 85,
               borderRadius: 50,
               marginHorizontal: 15,
-              marginVertical: 10,
+              marginTop: 10,
             }}
           />
+
+          <View
+            style={{
+              position: "absolute",
+              width: 85,
+              height: 85,
+              borderRadius: 50,
+              marginHorizontal: 15,
+              marginTop: 10,
+              backgroundColor: "#08080830",
+            }}
+          >
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
+              <FontAwesome name="camera" size={24} color="#1b1b1b" />
+            </View>
+          </View>
           <Text
             style={{
               textAlign: "center",
+              fontWeight: "bold",
+              marginTop: 5,
             }}
           >
             Leah Deshar
@@ -68,17 +98,27 @@ const Profile = () => {
             <Text
               style={{
                 textAlign: "center",
+                fontWeight: "bold",
+                fontSize: 16,
               }}
             >
               0
             </Text>
-            <Text>posts</Text>
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+            >
+              posts
+            </Text>
           </View>
 
           <View>
             <Text
               style={{
                 textAlign: "center",
+                fontWeight: "bold",
+                fontSize: 16,
               }}
             >
               62
@@ -89,6 +129,8 @@ const Profile = () => {
             <Text
               style={{
                 textAlign: "center",
+                fontWeight: "bold",
+                fontSize: 16,
               }}
             >
               64
