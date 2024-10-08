@@ -9,7 +9,7 @@ import {
 import React from "react";
 import suggestedUsers from "@/assets/data/suggestedUsers.js";
 
-const SuggestedPeople = () => {
+const SuggestedPeople = ({ title = "Suggested for you" }) => {
   return (
     <View
       style={{
@@ -32,7 +32,7 @@ const SuggestedPeople = () => {
             fontWeight: "bold",
           }}
         >
-          Suggested for you
+          {title}
         </Text>
         <TouchableOpacity>
           <Text

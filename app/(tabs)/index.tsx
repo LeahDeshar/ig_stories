@@ -2,29 +2,18 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   SafeAreaView,
-  TextInput,
-  Pressable,
-  Keyboard,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   ScrollView,
-  Dimensions,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import postsData from "@/assets/data/postsData.js";
 
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
-import Carousel from "react-native-reanimated-carousel";
 
 import {
-  AntDesign,
-  Feather,
-  FontAwesome,
   Ionicons,
-  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import InstaHeader from "@/components/InstaHeader";
 import StoryList from "@/components/StoryList";
