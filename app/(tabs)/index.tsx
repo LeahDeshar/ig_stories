@@ -12,9 +12,7 @@ import postsData from "@/assets/data/postsData.js";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 
-import {
-  Ionicons,
-} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import InstaHeader from "@/components/InstaHeader";
 import StoryList from "@/components/StoryList";
 import SuggestedPeople from "@/components/SuggestedPeople";
@@ -42,7 +40,7 @@ export default function HomeScreen() {
           }}
         >
           <LinearGradient
-            colors={["#ff9a9e", "#fecfef", "#fecfef"]}
+            colors={["#ff9a9e", "#e66ec0", "#efa6d8"]}
             style={{
               width: 25,
               height: 25,
@@ -62,7 +60,7 @@ export default function HomeScreen() {
                 alignItems: "center",
               }}
             >
-              <Ionicons name="checkmark" size={20} color="#fecfef" />
+              <Ionicons name="checkmark" size={20} color="#e66ec0" />
             </View>
           </LinearGradient>
           <View>

@@ -14,7 +14,7 @@ const Story = ({ username, profilePic }) => {
   return (
     <TouchableOpacity style={styles.storyContainer}>
       <LinearGradient
-        colors={["#ff9a9e", "#fecfef", "#fecfef"]}
+        colors={["#f88084", "#f9a9e0", "#d39ec2"]}
         style={styles.gradient}
       >
         <View
