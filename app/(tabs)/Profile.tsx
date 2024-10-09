@@ -19,7 +19,6 @@ import {
   MaterialIcons,
   SimpleLineIcons,
 } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
 import SuggestedPeople from "@/components/SuggestedPeople";
 import highlightData from "@/assets/data/highlightData";
 
@@ -37,13 +36,14 @@ const Profile = () => {
         backgroundColor: "white",
       }}
     >
+      {/* <StatusBar style="auto" /> */}
+
       <ScrollView
         contentContainerStyle={{
           paddingVertical: 10,
           paddingBottom: 130,
         }}
       >
-        <StatusBar style="dark" />
         <ProfileHeader />
         <ProfileFollower />
         <ProfileButton />
