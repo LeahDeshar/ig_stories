@@ -111,7 +111,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign, Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type VideoPost = {
@@ -171,21 +171,49 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
           style={styles.overlay}
         />
         <SafeAreaView style={{ flex: 1 }}>
-          <View>
-            <Text style={{}}>Header</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              top: 30,
+              marginHorizontal: 20,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 22,
+                  fontWeight: "bold",
+                  //   marginLeft: 10,
+                  marginRight: 5,
+                }}
+              >
+                Reels
+              </Text>
+              <FontAwesome name="angle-down" size={20} color="white" />
+            </View>
+            <View>
+              <Ionicons name="camera-outline" size={28} color="white" />
+            </View>
           </View>
           <View style={styles.footer}>
             <View style={styles.leftColumn}>
               <Text style={styles.caption}>{post.caption}</Text>
             </View>
             <View style={styles.rightColumn}>
-              <Ionicons name="heart" size={35} color="white" />
-              {/* comment icon*/}
+              <AntDesign name="hearto" size={35} color="white" />
+              <Ionicons name="chatbubble-outline" size={35} color="white" />
 
-              <Ionicons name="chatbubble" size={35} color="white" />
-
-              <Ionicons name="share-social-sharp" size={35} color="white" />
-              <Ionicons name="bookmark" size={35} color="white" />
+              <Feather name="send" size={24} color="black" />
+              <Feather name="bookmark" size={24} color="black" />
               {/* horizontal three dots */}
               <Ionicons name="ellipsis-horizontal" size={35} color="white" />
             </View>
