@@ -74,6 +74,10 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
           colors={["transparent", "rgba(0,0,0,0.8)"]}
           style={styles.overlay}
         />
+        <LinearGradient
+          colors={["rgba(0,0,0,0.4)", "transparent"]}
+          style={{ ...StyleSheet.absoluteFillObject, top: 0, height: "18%" }}
+        />
         <SafeAreaView style={{ flex: 1 }}>
           <View
             style={{
@@ -85,11 +89,13 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
             }}
           >
             <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              style={[
+                {
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                },
+              ]}
             >
               <Text
                 style={{
@@ -108,11 +114,21 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
               <Ionicons name="camera-outline" size={28} color="white" />
             </View>
           </View>
-          <View style={styles.footer}>
+          <View
+            style={{
+              marginTop: "auto",
+              flexDirection: "row",
+              alignItems: "flex-end",
+              // borderColor: "white",
+              // borderWidth: 2,
+              height: "40%",
+              marginRight: 10,
+            }}
+          >
             <View
               style={[
-                styles.leftColumn,
                 {
+                  flex: 1,
                   marginHorizontal: 10,
                 },
               ]}
@@ -132,9 +148,32 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
                     marginRight: 10,
                   }}
                 />
-                <Text>crossing_thoughts</Text>
-                <TouchableOpacity>
-                  <Text>Follow</Text>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 15,
+                    fontWeight: "bold",
+                    marginRight: 9,
+                  }}
+                >
+                  crossing_thoughts
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#8080809d",
+                    padding: 5,
+                    borderRadius: 9,
+                    paddingHorizontal: 9,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                    }}
+                  >
+                    Follow
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View
@@ -153,7 +192,14 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
                 </Text>
               </View>
             </View>
-            <View style={styles.rightColumn}>
+            <View
+              style={{
+                // borderWidth: 1,
+                // borderColor: "white",
+                height: "100%",
+                justifyContent: "space-between",
+              }}
+            >
               <View
                 style={{
                   justifyContent: "center",
@@ -226,8 +272,14 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
                   1,100
                 </Text>
               </View>
-              {/* horizontal three dots */}
-              <Ionicons name="ellipsis-horizontal" size={19} color="white" />
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons name="ellipsis-horizontal" size={19} color="white" />
+              </View>
             </View>
           </View>
           <View
@@ -236,25 +288,39 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
               justifyContent: "space-between",
               alignItems: "center",
               marginHorizontal: 10,
-              marginTop: 10,
+              // borderColor: "white",
+              // borderWidth: 1,
+              top: 20,
             }}
           >
             <View
               style={{
-                backgroundColor: "grey",
+                backgroundColor: "#91919159",
                 borderRadius: 25,
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
+                paddingHorizontal: 15,
+                paddingVertical: 3,
               }}
             >
-              <Ionicons name="musical-notes-sharp" size={18} color="white" />
-              <Text>sam smith - original audio</Text>
+              <Ionicons name="musical-notes-sharp" size={15} color="white" />
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 12,
+                  marginLeft: 5,
+                }}
+              >
+                sam smith - original audio
+              </Text>
             </View>
             <View
               style={{
-                borderColor: "white",
+                borderColor: "#ffffff75",
                 borderWidth: 1,
+                borderRadius: 10,
+                overflow: "hidden",
               }}
             >
               <Image
@@ -262,17 +328,19 @@ const VideoPost = ({ post, activePostId }: VideoPost) => {
                   uri: post?.thumbnail,
                 }}
                 style={{
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
+                  borderRadius: 10,
                 }}
               />
               <View
                 style={{
                   position: "absolute",
-                  backgroundColor: "transparent",
+                  top: 6,
+                  left: 5,
                 }}
               >
-                <Ionicons name="musical-notes-sharp" size={24} color="black" />
+                <Ionicons name="musical-notes-sharp" size={18} color="white" />
               </View>
             </View>
           </View>
@@ -287,13 +355,12 @@ const styles = StyleSheet.create({
   content: { flex: 1 },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    top: "50%",
+    top: "45%",
   },
   playIcon: { position: "absolute", alignSelf: "center", top: "50%" },
-  footer: { marginTop: "auto", flexDirection: "row", alignItems: "flex-end" },
-  leftColumn: { flex: 1 },
+  footer: {},
+  leftColumn: {},
   caption: { color: "white", fontSize: 18 },
-  rightColumn: { gap: 10 },
 });
 
 export default VideoPost;

@@ -11,7 +11,12 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { StatusBar } from "react-native";
+import { LogBox } from "react-native";
 
+// Ignore specific warnings
+LogBox.ignoreLogs([
+  "Layout children must be of type Screen, all other children are ignored. To use custom children, create a custom <Layout />. Update Layout Route at: ",
+]);
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
