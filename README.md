@@ -4,7 +4,7 @@
 
 ### demo 👇
 
-![alt](o.gif)
+<!-- ![alt](o.gif) -->
 
 <!-- <img src="o.gif"> -->
 <p align="center">
