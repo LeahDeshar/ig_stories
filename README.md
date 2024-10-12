@@ -1,4 +1,9 @@
 # Instagram Clone
 
 ![alt](o1.png)
-<img src="o.gif">
+
+### demo 👇
+
+![alt](o.gif)
+
+<!-- <img src="o.gif"> -->
